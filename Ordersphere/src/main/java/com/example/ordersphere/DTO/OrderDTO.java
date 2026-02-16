@@ -1,15 +1,18 @@
 package com.example.ordersphere.DTO;
 
+import lombok.*;
+
+import java.util.List;
+
+@Setter
+@Getter
 public class OrderDTO {
 
     private Long customerId;
-    private Long productId;
-    private Integer quantity;
+    private List<OrderItemDTO> items;
 
-    public Long getCustomerId() {
-        return customerId;
-    }
 
+    /* Previous code
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
@@ -29,4 +32,6 @@ public class OrderDTO {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+     */
 }

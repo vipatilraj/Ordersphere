@@ -1,15 +1,16 @@
 package com.example.ordersphere.service;
 
-import com.example.ordersphere.DTO.OrderDTO;
-import com.example.ordersphere.entity.Customer;
-import com.example.ordersphere.entity.Order;
-import com.example.ordersphere.entity.OrderStatus;
-import com.example.ordersphere.entity.Product;
+import com.example.ordersphere.DTO.OrderItemRequest;
+import com.example.ordersphere.DTO.CreateOrderRequest;
+import com.example.ordersphere.entity.*;
 import com.example.ordersphere.repository.CustomerRepository;
 import com.example.ordersphere.repository.OrderRepository;
 import com.example.ordersphere.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class OrderService {
@@ -24,6 +25,7 @@ public class OrderService {
         this.productRepository = productRepository;
     }
 
+    /* Previous code
     @Transactional
     public Order placeOrder(OrderDTO dto){
 
@@ -48,5 +50,46 @@ public class OrderService {
 
         return orderRepository.save(order);
 
+    }
+
+     */
+
+    @Transactional
+    public Order createOrder(CreateOrderRequest request) {
+
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        Order order = new Order();
+        order.setOrderDate(LocalDate.now());
+        order.setCustomer(customer);
+        order.setStatus(OrderStatus.CREATED);
+
+        List<OrderItem> orderItems = new ArrayList<>();
+
+        for (OrderItemRequest itemRequest : request.getItems()) {
+
+            Product product = productRepository.findById(itemRequest.getProductId())
+                    .orElseThrow(() -> new RuntimeException("Product not found"));
+
+            if (product.getAvailableQuantity() < itemRequest.getQuantity()) {
+                throw new RuntimeException("Insufficient stock for product: " + product.getName());
+            }
+
+            product.setAvailableQuantity(
+                    product.getAvailableQuantity() - itemRequest.getQuantity()
+            );
+
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+            orderItem.setProduct(product);
+            orderItem.setQuantity(itemRequest.getQuantity());
+
+            orderItems.add(orderItem);
+        }
+
+        order.setOrderItems(orderItems);
+
+        return orderRepository.save(order);
     }
 }

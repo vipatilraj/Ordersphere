@@ -1,6 +1,8 @@
 package com.example.ordersphere.entity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,11 +21,15 @@ public class Order {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     private Integer quantity;
+
+     */
+
+    private LocalDate orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
