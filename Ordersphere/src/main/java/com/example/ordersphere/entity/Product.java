@@ -2,7 +2,16 @@ package com.example.ordersphere.entity;
 
 import jakarta.persistence.*;
 
+import lombok.*;
+
+import java.util.List;
+
+
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "products")
 public class Product {
 
@@ -19,6 +28,11 @@ public class Product {
     @Column(nullable = false)
     private Integer availableQuantity;
 
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItems;
+
+
+    /* Previous code
     public Product() {
     }
 
@@ -53,4 +67,6 @@ public class Product {
     public void setAvailableQuantity(Integer availableQuantity) {
         this.availableQuantity = availableQuantity;
     }
+
+     */
 }

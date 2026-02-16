@@ -1,8 +1,13 @@
 package com.example.ordersphere.entity;
-
 import jakarta.persistence.*;
+import lombok.*;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "orders")
 public class Order {
 
@@ -23,6 +28,13 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
+
+
+
+
+    /* Previous code
     public Order() { }
 
     public Long getId() {
@@ -64,4 +76,5 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+    */
 }

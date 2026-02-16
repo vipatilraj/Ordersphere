@@ -2,8 +2,15 @@ package com.example.ordersphere.entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "customer")
 public class Customer {
 
@@ -17,8 +24,15 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
     private String phone;
 
+
+
+
+   /* Previous code
     public long getId() {
         return id;
     }
@@ -45,5 +59,6 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
+    } */
+
 }
