@@ -1,12 +1,10 @@
 package com.example.ordersphere.controller;
 
 import com.example.ordersphere.DTO.OrderDTO;
+import com.example.ordersphere.DTO.OrderResponseDTO;
 import com.example.ordersphere.entity.Order;
 import com.example.ordersphere.service.OrderService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
@@ -19,10 +17,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public Order placeOrder(@RequestBody OrderDTO dto)
-    {
-        return orderService.placeOrder(dto);
+    public OrderResponseDTO createOrder(@RequestBody OrderDTO orderDTO) {
+        return orderService.createOrder(orderDTO);
     }
-
 
 }
