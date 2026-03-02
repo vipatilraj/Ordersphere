@@ -1,5 +1,8 @@
 package com.example.ordersphere.DTO;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -8,30 +11,11 @@ import java.util.List;
 @Getter
 public class OrderDTO {
 
+    @NotNull(message = "Please provide customer id")
     private Long customerId;
+
+    @NotEmpty(message = "Please select a item")
+    @Valid
     private List<OrderItemDTO> items;
 
-
-    /* Previous code
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-     */
 }

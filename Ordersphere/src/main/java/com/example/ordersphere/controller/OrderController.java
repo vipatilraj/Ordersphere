@@ -2,8 +2,8 @@ package com.example.ordersphere.controller;
 
 import com.example.ordersphere.DTO.OrderDTO;
 import com.example.ordersphere.DTO.OrderResponseDTO;
-import com.example.ordersphere.entity.Order;
 import com.example.ordersphere.service.OrderService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +17,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderResponseDTO createOrder(@RequestBody OrderDTO orderDTO) {
+    public OrderResponseDTO createOrder(@Valid @RequestBody OrderDTO orderDTO) {
         return orderService.createOrder(orderDTO);
     }
 

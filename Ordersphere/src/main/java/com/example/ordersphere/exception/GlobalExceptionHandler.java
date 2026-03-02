@@ -2,6 +2,7 @@ package com.example.ordersphere.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -31,6 +32,26 @@ import java.time.LocalDateTime;
             );
 
             return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+        }
+
+        @ExceptionHandler(MethodArgumentNotValidException.class)
+        public ResponseEntity<ErrorResponse> handleValidationException(
+                MethodArgumentNotValidException ex) {
+
+            String errorMessage = ex.getBindingResult()
+                    .getFieldErrors()
+                    .stream()
+                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                    .findFirst()
+                    .orElse("Validation error");
+
+            ErrorResponse error = new ErrorResponse(
+                    HttpStatus.BAD_REQUEST.value(),
+                    errorMessage,
+                    LocalDateTime.now()
+            );
+
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
 
         @ExceptionHandler(Exception.class)
