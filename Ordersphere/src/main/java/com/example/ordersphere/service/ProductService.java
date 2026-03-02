@@ -27,13 +27,4 @@ public class ProductService {
        return productRepository.save(product);
 
     }
-
-//    public List<Product> getProductList()
-//    {
-//        List<Product> products = new ArrayList<Product>();
-//
-//
-//        return products;
-//    }
-
 }

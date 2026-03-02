@@ -4,10 +4,7 @@ package com.example.ordersphere.controller;
 import com.example.ordersphere.DTO.CustomerDTO;
 import com.example.ordersphere.entity.Customer;
 import com.example.ordersphere.service.CustomerService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
@@ -24,5 +21,12 @@ public class CustomerController {
         return customerService.createCustomer(dto);
 
     }
+
+    @PutMapping
+    public String updateCustomer(@RequestBody CustomerDTO dto)
+    {
+        return "Record updated";
+    }
+
 }
 

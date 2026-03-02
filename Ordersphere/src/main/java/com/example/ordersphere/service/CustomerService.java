@@ -6,6 +6,8 @@ import com.example.ordersphere.entity.Customer;
 import com.example.ordersphere.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
@@ -22,6 +24,14 @@ public class CustomerService {
         customer.setPhone(custdto.getPhone());
 
         return customerRepository.save(customer);
+    }
+
+    public String updateCustomer(CustomerDTO customerDTO)
+    {
+        Optional<Customer> customer = customerRepository.findByEmail(customerDTO.getEmail());
+
+
+        return "Updated";
     }
 }
 
