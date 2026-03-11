@@ -96,31 +96,4 @@ public class OrderService {
      return orderResponseDTO;
  }
 
-    /* Previous code
-    @Transactional
-    public Order placeOrder(OrderDTO dto){
-
-        Customer customer = customerRepository.findById(dto.getCustomerId())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
-
-        Product product = productRepository.findById(dto.getProductId())
-                .orElseThrow(()-> new RuntimeException("Product not found"));
-
-        if(product.getAvailableQuantity() < dto.getQuantity())
-        {
-            throw new RuntimeException("Not enough quantity");
-        }
-
-        product.setAvailableQuantity(product.getAvailableQuantity() - dto.getQuantity());
-
-        Order order = new Order();
-        order.setCustomer(customer);
-        order.setProduct(product);
-        order.setQuantity(dto.getQuantity());
-        order.setStatus(OrderStatus.CREATED);
-
-        return orderRepository.save(order);
-    }
-    */
-
 }
