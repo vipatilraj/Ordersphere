@@ -74,26 +74,35 @@ public class OrderService {
 
 
 //putting details in response dto
- public OrderResponseDTO getOrderDetails(Order order)
- {
-     OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
-     orderResponseDTO.setOrderId(order.getId());
-     orderResponseDTO.setCustomerId(order.getCustomer().getId());
-     orderResponseDTO.setOrderDate(order.getOrderDate());
+    @Transactional
+    public OrderResponseDTO getOrderWithId(Long OrderId)
+    {
+        Order order = orderRepository.findById(OrderId)
+             .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
 
-     List<OrderItemResponseDTO> itemResponses = new ArrayList<>();
+        return getOrderDetails(order);
+    }
 
-     for (OrderItem item : order.getOrderItems()) {
-         OrderItemResponseDTO itemDTO = new OrderItemResponseDTO();
-         itemDTO.setProductId(item.getProduct().getId());
-         itemDTO.setProductName(item.getProduct().getName());
-         itemDTO.setQuantity(item.getQuantity());
-         itemResponses.add(itemDTO);
-     }
+//fetching order details
+    public OrderResponseDTO getOrderDetails(Order order)
+    {
+        OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
+        orderResponseDTO.setOrderId(order.getId());
+        orderResponseDTO.setCustomerId(order.getCustomer().getId());
+        orderResponseDTO.setOrderDate(order.getOrderDate());
 
-     orderResponseDTO.setItems(itemResponses);
-     orderResponseDTO.setTotalAmount(order.getTotalAmount());
-     return orderResponseDTO;
- }
+        List<OrderItemResponseDTO> itemResponses = new ArrayList<>();
 
+        for (OrderItem item : order.getOrderItems()) {
+            OrderItemResponseDTO itemDTO = new OrderItemResponseDTO();
+            itemDTO.setProductId(item.getProduct().getId());
+            itemDTO.setProductName(item.getProduct().getName());
+            itemDTO.setQuantity(item.getQuantity());
+            itemResponses.add(itemDTO);
+        }
+
+        orderResponseDTO.setItems(itemResponses);
+        orderResponseDTO.setTotalAmount(order.getTotalAmount());
+        return orderResponseDTO;
+    }
 }

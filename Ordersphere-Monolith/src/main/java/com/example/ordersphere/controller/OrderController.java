@@ -4,6 +4,7 @@ import com.example.ordersphere.DTO.OrderDTO;
 import com.example.ordersphere.DTO.OrderResponseDTO;
 import com.example.ordersphere.service.OrderService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,5 +21,13 @@ public class OrderController {
     public OrderResponseDTO createOrder(@Valid @RequestBody OrderDTO orderDTO) {
         return orderService.createOrder(orderDTO);
     }
+
+    @GetMapping("/{OrderId}")
+    public OrderResponseDTO getOrderWithId(@PathVariable Long OrderId)
+    {
+        return orderService.getOrderWithId(OrderId);
+        //return response;
+    }
+
 
 }
