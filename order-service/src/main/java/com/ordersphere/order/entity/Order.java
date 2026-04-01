@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -21,6 +22,9 @@ public class Order {
 
     @Column(nullable = false)
     private Double amount;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderLine> orderLines;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
