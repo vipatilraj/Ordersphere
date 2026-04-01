@@ -3,10 +3,12 @@ package com.ordersphere.order.service.impl;
 import com.ordersphere.order.dto.request.OrderRequestDTO;
 import com.ordersphere.order.dto.response.OrderResponseDTO;
 import com.ordersphere.order.entity.Order;
+import com.ordersphere.order.kafka.producer.OrderProducer;
 import com.ordersphere.order.mapper.OrderMapper;
 import com.ordersphere.order.repository.OrderRepository;
 import com.ordersphere.order.service.OrderService;
 import jakarta.transaction.Transactional;
+import com.ordersphere.order.kafka.event.OrderCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
+    private final OrderProducer orderProducer;
+
     @Transactional
     @Override
     public OrderResponseDTO createOrder(OrderRequestDTO request) {
@@ -23,6 +27,14 @@ public class OrderServiceImpl implements OrderService {
         Order order = OrderMapper.toEntity(request);
 
         Order savedOrder = orderRepository.save(order);
+
+        OrderCreatedEvent event = OrderCreatedEvent.builder()
+                .orderId(savedOrder.getId())
+                .customerId(savedOrder.getCustomerId())
+                .amount(savedOrder.getAmount())
+                .build();
+
+        orderProducer.sendOrderCreatedEvent(event);
 
         return OrderMapper.toDTO(savedOrder);
     }
