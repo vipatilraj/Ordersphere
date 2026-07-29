@@ -1,0 +1,13 @@
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\controller\InventoryController.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\dto\Request\InventoryManipulateDTO.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\dto\Request\InventoryRequestDTO.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\dto\Response\InventoryResponseDTO.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\entity\Inventory.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\InventoryServiceApplication.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\kafka\consumer\InventoryConsumer.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\kafka\event\OrderCreatedEvent.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\kafka\event\OrderLineEvent.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\mapper\InventoryMapper.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\repository\InventoryRepository.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\service\impl\InventoryServiceImpl.java
+E:\Ordersphere\inventory-service\src\main\java\com\ordersphere\inventory\service\InventoryService.java

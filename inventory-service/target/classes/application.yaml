@@ -30,6 +30,6 @@ spring:
         spring.json.value.default.type: com.ordersphere.inventory.kafka.event.OrderCreatedEvent
         spring.json.use.type.headers: false
 
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#  autoconfigure:
+#    exclude:
+#      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
